@@ -90,12 +90,11 @@ const useExpand = (url, bigUrl) => {
           style={{
             display: "none",
             position: "absolute",
-            backgroundColor: "#91a7ff",
+            backgroundImage: "url(https://images-na.ssl-images-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369105_.gif)",
             width: "422px",
             height: "303px",
             left: 0,
-            top: 0,
-            opacity: 0.2
+            top: 0
           }}
         />
       </div>
@@ -107,8 +106,8 @@ const useExpand = (url, bigUrl) => {
           position: "absolute",
           top: '11px',
           bottom: 0,
-          right: '30px',
-          margin: 'auto',
+          left: '50%',
+          margin: 'auto 0',
           width: "937px",
           height: "670px",
           overflow: "hidden",
