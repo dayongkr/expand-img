@@ -1,4 +1,4 @@
-import React, {useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import "./index.css";
 
 const useExpand = (url, bigUrl) => {
@@ -8,7 +8,7 @@ const useExpand = (url, bigUrl) => {
   const zoomWindowRef = useRef();
   const detailImgRef = useRef();
 
-  const handleEvent = () => {
+  const handleEnterEvent = () => {
     window.addEventListener("mousemove", mouseEvent);
   };
 
@@ -38,29 +38,34 @@ const useExpand = (url, bigUrl) => {
       clientY <= imgOffHei + imgOffTop
     ) {
       magnifierRef.current.style.display = "block";
+      zoomWindowRef.current.style.display = "block";
     } else {
       magnifierRef.current.style.display = "none";
+      zoomWindowRef.current.style.display = "none";
     }
-    if (clientX < imgOffLeft + magOffWid / 2) {
+    if (clientX <= imgOffLeft + magOffWid / 2) {
       magnifierRef.current.style.left = imgOffLeft + "px";
-    } else if (clientX > imgOffLeft - magOffWid / 2 + imgOffWid) {
+    } else if (clientX >= imgOffLeft - magOffWid / 2 + imgOffWid) {
       magnifierRef.current.style.left =
         imgOffLeft + imgOffWid - magOffWid + "px";
     }
-    if (clientY < imgOffTop + magOffHei / 2) {
+    if (clientY <= imgOffTop + magOffHei / 2) {
       magnifierRef.current.style.top = imgOffTop + "px";
-    } else if (clientY > imgOffTop - magOffHei / 2 + imgOffHei) {
+    } else if (clientY >= imgOffTop - magOffHei / 2 + imgOffHei) {
       magnifierRef.current.style.top = imgOffTop + imgOffHei - magOffHei + "px";
     }
-
-
+    if(detailImgRef.current) {
+      detailImgRef.current.style.left = -(parseInt(magnifierRef.current.style.left) - imgOffLeft) * (zoomWindowRef.current.offsetWidth / magOffWid) + 'px';
+      detailImgRef.current.style.top = -(parseInt(magnifierRef.current.style.top) - imgOffTop) * (zoomWindowRef.current.offsetHeight / magOffHei) + 'px';
+      console.log(zoomWindowRef.current.offsetWidth / imgWrapRef.current.offsetWidth)
+    }
   };
 
   useEffect(() => {
-    imgWrapRef.current.addEventListener("mouseenter", handleEvent);
+    imgWrapRef.current.addEventListener("mouseenter", handleEnterEvent);
     imgWrapRef.current.addEventListener("mouseleave", handleLeaveEvent);
     return () => {
-      imgWrapRef.current.removeEventListener("mouseenter", handleEvent);
+      imgWrapRef.current.removeEventListener("mouseenter", handleEnterEvent);
       imgWrapRef.current.removeEventListener("mouseleave", handleLeaveEvent);
     };
   });
@@ -78,13 +83,7 @@ const useExpand = (url, bigUrl) => {
           alignItems: "center"
         }}
       >
-        <img
-          id="ladingImage"
-          ref={imgRef}
-          src={url}
-          alt="product img"
-          style={{ border: "1px solid black" }}
-        />
+        <img id="ladingImage" ref={imgRef} src={url} alt="product img" />
         <div
           id="magnifier-lens"
           ref={magnifierRef}
@@ -104,18 +103,21 @@ const useExpand = (url, bigUrl) => {
         id="zoomWindow"
         ref={zoomWindowRef}
         style={{
-          display: "block",
+          display: "none",
           position: "absolute",
-          top: 0,
-          right: 0,
+          top: '11px',
+          bottom: 0,
+          right: '30px',
+          margin: 'auto',
           width: "937px",
           height: "670px",
-          overflow: "hidden"
+          overflow: "hidden",
+          border: "1px solid black"
         }}
       >
         <img
           id="detailImg"
-          ef={detailImgRef}
+          ref={detailImgRef}
           src={bigUrl}
           alt="detail img"
           style={{ display: "block", position: "absolute", top: 0, left: 0 }}
