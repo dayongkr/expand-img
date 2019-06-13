@@ -78,12 +78,21 @@ const useExpand = url => {
   });
 
   useEffect(() => {
-    if (imgRef.current.clientWidth >= imgRef.current.clientHeight) {
-      imgRef.current.style.width = "679px";
-    } else {
-      imgRef.current.style.height = "679px";
-    }
-  }, [imgRef]);
+    const checkImgRefWid = setInterval(() => {
+      if (imgRef.current.width >= imgRef.current.height && imgRef.current.width !== 0) {
+        imgRef.current.style.width = "679px";
+        clearInterval(checkImgRefWid)
+      } else if (imgRef.current.width < imgRef.current.height) {
+        imgRef.current.style.height = "679px";
+        clearInterval(checkImgRefWid)
+      } else {
+        setTimeout(() => {
+
+        clearInterval(checkImgRefWid)
+        },10000)
+      }
+    }, 50);
+  }, [url]);
 
   return (
     <>
@@ -98,12 +107,7 @@ const useExpand = url => {
           alignItems: "center"
         }}
       >
-        <img
-          id="ladingImage"
-          ref={imgRef}
-          src={url}
-          alt="product img"
-        />
+        <img id="ladingImage" ref={imgRef} src={url} alt="product img" />
         <div
           id="magnifier-lens"
           ref={magnifierRef}
@@ -112,8 +116,8 @@ const useExpand = url => {
             position: "absolute",
             backgroundImage:
               "url(https://images-na.ssl-images-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369105_.gif)",
-            width: "300px",
-            height: "200px",
+            width: "150px",
+            height: "100px",
             left: 0,
             top: 0
           }}
