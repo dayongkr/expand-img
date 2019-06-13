@@ -54,10 +54,18 @@ const useExpand = (url, bigUrl) => {
     } else if (clientY >= imgOffTop - magOffHei / 2 + imgOffHei) {
       magnifierRef.current.style.top = imgOffTop + imgOffHei - magOffHei + "px";
     }
-    if(detailImgRef.current) {
-      detailImgRef.current.style.left = -(parseInt(magnifierRef.current.style.left) - imgOffLeft) * (zoomWindowRef.current.offsetWidth / magOffWid) + 'px';
-      detailImgRef.current.style.top = -(parseInt(magnifierRef.current.style.top) - imgOffTop) * (zoomWindowRef.current.offsetHeight / magOffHei) + 'px';
-      console.log(zoomWindowRef.current.offsetWidth / imgWrapRef.current.offsetWidth)
+    if (detailImgRef.current) {
+      detailImgRef.current.style.left =
+        -(parseInt(magnifierRef.current.style.left) - imgOffLeft) *
+          (zoomWindowRef.current.offsetWidth / magOffWid) +
+        "px";
+      detailImgRef.current.style.top =
+        -(parseInt(magnifierRef.current.style.top) - imgOffTop) *
+          (zoomWindowRef.current.offsetHeight / magOffHei) +
+        "px";
+      console.log(
+        zoomWindowRef.current.offsetWidth / imgWrapRef.current.offsetWidth
+      );
     }
   };
 
@@ -90,9 +98,10 @@ const useExpand = (url, bigUrl) => {
           style={{
             display: "none",
             position: "absolute",
-            backgroundImage: "url(https://images-na.ssl-images-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369105_.gif)",
-            width: "422px",
-            height: "303px",
+            backgroundImage:
+              "url(https://images-na.ssl-images-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369105_.gif)",
+            width: "15vw",
+            height: "20vh",
             left: 0,
             top: 0
           }}
@@ -104,12 +113,10 @@ const useExpand = (url, bigUrl) => {
         style={{
           display: "none",
           position: "absolute",
-          top: '11px',
-          bottom: 0,
-          left: '50%',
-          margin: 'auto 0',
-          width: "937px",
-          height: "670px",
+          bottom: '5vh',
+          right: "5vh",
+          width: "33vw",
+          height: "44vh",
           overflow: "hidden",
           border: "1px solid black"
         }}
